@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KUNAL STORE — Haute Couture</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #F5F0E8;
+    --off-white: #FAF8F4;
+    --black: #0A0A0A;
+    --gold: #B8975A;
+    --gold-light: #D4B87A;
+    --muted: #6B6560;
+    --border: rgba(10,10,10,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--off-white);
+    color: var(--black);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 28px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    mix-blend-mode: normal;
+    transition: background 0.5s, padding 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(250,248,244,0.95);
+    backdrop-filter: blur(12px);
+    padding: 18px 60px;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--black);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s;
+  }
+
+  /* HERO */
+  .hero {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    background: var(--black);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 80px 70px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L30 60 M0 30 L60 30' stroke='%23ffffff08' stroke-width='0.5'/%3E%3C/svg%3E");
+  }
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(56px, 7vw, 96px);
+    font-weight: 300;
+    line-height: 1;
+    color: #fff;
+    opacity: 0;
+    animation: fadeUp 1.1s 0.5s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+    display: block;
+  }
+  .hero-sub {
+    margin-top: 32px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.45);
+    max-width: 280px;
+    line-height: 1.9;
+    opacity: 0;
+    animation: fadeUp 1.1s 0.7s forwards;
+  }
+  .hero-cta {
+    margin-top: 52px;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 1.1s 0.9s forwards;
+  }
+  .btn-primary {
+    padding: 16px 40px;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    transition: background 0.3s, transform 0.3s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-ghost {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    transition: color 0.3s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-ghost:hover { color: #fff; }
+  .btn-ghost span { width: 24px; height: 1px; background: currentColor; display: inline-block; transition: width 0.3s; }
+  .btn-ghost:hover span { width: 40px; }
+
+  .hero-right {
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-right-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .hero-visual {
+    width: 320px; height: 420px;
+    position: relative;
+    opacity: 0;
+    animation: scaleIn 1.4s 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+  .hero-visual-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #E8E0D0 0%, #D4C9B0 100%);
+  }
+  .hero-visual-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0; top: 40%;
+    background: linear-gradient(to top, rgba(10,10,10,0.35) 0%, transparent 100%);
+  }
+  .hero-visual-label {
+    position: absolute;
+    bottom: 32px; left: 32px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: #fff;
+    font-style: italic;
+  }
+  .hero-figure {
+    position: absolute;
+    inset: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* SVG fashion figure */
+  .fashion-silhouette {
+    width: 200px;
+    opacity: 0.18;
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .hero-tag {
+    position: absolute;
+    top: 30px; right: 30px;
+    background: var(--black);
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+  }
+  .hero-number {
+    position: absolute;
+    right: 60px; top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    opacity: 0;
+    animation: fadeIn 1s 1.2s forwards;
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px; left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    animation: fadeIn 1s 1.5s forwards;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: var(--muted);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    top: -100%; left: 0;
+    width: 100%; height: 100%;
+    background: var(--gold);
+    animation: scrollAnim 2s 2s ease-in-out infinite;
+  }
+  .scroll-text {
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--black);
+    padding: 18px 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 22s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 0 32px;
+    white-space: nowrap;
+  }
+  .marquee-item span {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    font-weight: 300;
+  }
+  .marquee-item .dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* SECTION HEADER */
+  .section-header {
+    text-align: center;
+    padding: 100px 60px 60px;
+  }
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 5vw, 68px);
+    font-weight: 300;
+    line-height: 1.1;
+  }
+  .section-title em { font-style: italic; color: var(--muted); }
+  .section-line {
+    width: 50px; height: 1px;
+    background: var(--gold);
+    margin: 28px auto 0;
+  }
+
+  /* COLLECTION GRID */
+  .collection {
+    padding: 0 60px 100px;
+  }
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .product-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--cream);
+    aspect-ratio: 3/4;
+  }
+  .product-card.featured {
+    grid-column: span 2;
+    aspect-ratio: unset;
+  }
+  .product-bg {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .product-card:hover .product-bg { transform: scale(1.06); }
+
+  .p1 { background: linear-gradient(135deg, #2C2420 0%, #4A3728 60%, #2C2420 100%); }
+  .p2 { background: linear-gradient(135deg, #1A1F2E 0%, #2A3450 60%, #1A1F2E 100%); }
+  .p3 { background: linear-gradient(135deg, #2A2020 0%, #3D2E2E 60%, #2A2020 100%); }
+  .p4 { background: linear-gradient(135deg, #1C1C1C 0%, #2E2E2E 100%); }
+
+  .product-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+  }
+  .product-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 36px 32px;
+    transform: translateY(8px);
+    transition: transform 0.4s ease;
+  }
+  .product-card:hover .product-info { transform: translateY(0); }
+  .product-collection {
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .product-price {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.55);
+  }
+  .product-add {
+    position: absolute;
+    top: 24px; right: 24px;
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255,255,255,0.25);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: all 0.4s;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 200;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(4px);
+  }
+  .product-card:hover .product-add { opacity: 1; transform: translateY(0); }
+
+  /* Pattern overlay for cards */
+  .product-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 30px,
+      rgba(255,255,255,0.02) 30px,
+      rgba(255,255,255,0.02) 31px
+    );
+  }
+  .product-shape {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    opacity: 0.08;
+    transition: opacity 0.4s, transform 0.8s;
+  }
+  .product-card:hover .product-shape { opacity: 0.12; transform: translate(-50%, -58%); }
+
+  /* PHILOSOPHY */
+  .philosophy {
+    padding: 120px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .philosophy-text .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .philosophy-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 32px;
+  }
+  .philosophy-text h2 em { font-style: italic; }
+  .philosophy-text p {
+    font-size: 14px;
+    line-height: 2;
+    color: var(--muted);
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+  .philosophy-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+  }
+  .stat-item { border-top: 1px solid var(--border); padding-top: 20px; }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--black);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .philosophy-visual {
+    position: relative;
+    height: 600px;
+    background: var(--black);
+    overflow: hidden;
+  }
+  .philosophy-visual-bg {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 40px,
+      rgba(184,151,90,0.03) 40px,
+      rgba(184,151,90,0.03) 41px
+    );
+  }
+  .philosophy-quote {
+    position: absolute;
+    bottom: 50px; left: 50px; right: 50px;
+  }
+  .philosophy-quote blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+  .philosophy-quote cite {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-style: normal;
+  }
+  .philosophy-ornament {
+    position: absolute;
+    top: 50px; right: 50px;
+    opacity: 0.15;
+  }
+
+  /* FEATURED STRIP */
+  .featured-strip {
+    background: var(--black);
+    padding: 80px 60px;
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    overflow: hidden;
+    position: relative;
+  }
+  .featured-strip::before {
+    content: 'NEW SEASON';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 200px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.03);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.05em;
+  }
+  .featured-content { flex: 1; position: relative; z-index: 1; }
+  .featured-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .featured-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .featured-title em { font-style: italic; color: var(--gold-light); }
+  .featured-desc {
+    font-size: 13px;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.4);
+    max-width: 380px;
+    margin-bottom: 40px;
+  }
+  .featured-cards {
+    flex: 1.2;
+    display: flex;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .mini-card {
+    flex: 1;
+    height: 360px;
+    position: relative;
+    overflow: hidden;
+    transition: flex 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .mini-card:hover { flex: 1.4; }
+  .mini-card-bg {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.6s ease;
+  }
+  .mini-card:hover .mini-card-bg { transform: scale(1.08); }
+  .mc1 { background: linear-gradient(155deg, #2D2D2D 0%, #1A1A1A 100%); }
+  .mc2 { background: linear-gradient(155deg, #3D2B1A 0%, #261A0F 100%); }
+  .mc3 { background: linear-gradient(155deg, #1D2B3D 0%, #0F1A26 100%); }
+  .mini-label {
+    position: absolute;
+    bottom: 24px; left: 20px; right: 20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    padding: 100px 60px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 60px;
+    text-align: left;
+  }
+  .testimonial-card {
+    padding: 40px 36px;
+    border: 1px solid var(--border);
+    position: relative;
+    transition: border-color 0.3s, transform 0.4s;
+  }
+  .testimonial-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+  }
+  .testimonial-quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    line-height: 0.8;
+    color: var(--gold);
+    opacity: 0.3;
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+  .testimonial-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--black);
+    margin-bottom: 28px;
+    font-weight: 300;
+  }
+  .testimonial-author {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .testimonial-stars {
+    color: var(--gold);
+    font-size: 12px;
+    margin-bottom: 16px;
+    letter-spacing: 3px;
+  }
+
+  /* NEWSLETTER */
+  .newsletter {
+    background: var(--black);
+    padding: 100px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .newsletter::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(184,151,90,0.06) 0%, transparent 70%);
+  }
+  .newsletter-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .newsletter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: #fff;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .newsletter-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 48px;
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+  .newsletter-form {
+    display: flex;
+    gap: 0;
+    max-width: 480px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .newsletter-input {
+    flex: 1;
+    padding: 18px 24px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-right: none;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .newsletter-input::placeholder { color: rgba(255,255,255,0.25); }
+  .newsletter-input:focus { border-color: var(--gold); }
+  .newsletter-btn {
+    padding: 18px 32px;
+    background: var(--gold);
+    border: none;
+    color: var(--black);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: background 0.3s;
+  }
+  .newsletter-btn:hover { background: var(--gold-light); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 60px;
+  }
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: #fff;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .footer-about {
+    font-size: 13px;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.35);
+    max-width: 260px;
+  }
+  .footer-col-title {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 24px;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .footer-links a {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: color 0.3s;
+    letter-spacing: 0.05em;
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.1em;
+  }
+  .footer-socials { display: flex; gap: 24px; }
+  .footer-socials a {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-socials a:hover { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes scrollAnim {
+    0% { top: -100%; }
+    100% { top: 100%; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Kunal Store</a>
+  <ul class="nav-links">
+    <li><a href="#collection">Collection</a></li>
+    <li><a href="#featured">New Season</a></li>
+    <li><a href="#newsletter">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Haute Couture — SS 2026</div>
+    <h1 class="hero-title">
+      Kunal<br>
+      <em>Store</em>
+    </h1>
+    <p class="hero-sub">Where timeless elegance meets the boldness of modern luxury. Each piece — a statement.</p>
+    <div class="hero-cta">
+      <a href="#collection" class="btn-primary">Explore Collection</a>
+      <a href="#philosophy" class="btn-ghost"><span></span>Our Story</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner">
+      <div class="hero-visual">
+        <div class="hero-visual-bg"></div>
+        <div class="hero-visual-overlay"></div>
+        <!-- Minimal fashion silhouette SVG -->
+        <svg class="fashion-silhouette" viewBox="0 0 180 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="90" cy="40" rx="28" ry="35" fill="#fff"/>
+          <path d="M60 75 C40 90 30 130 35 200 L65 210 L70 350 L90 355 L110 350 L115 210 L145 200 C150 130 140 90 120 75 L90 85 Z" fill="#fff"/>
+          <path d="M35 200 L20 280 L50 285 L65 210Z" fill="#fff"/>
+          <path d="M145 200 L160 280 L130 285 L115 210Z" fill="#fff"/>
+        </svg>
+        <div class="hero-visual-label">Noir Signature</div>
+        <div class="hero-tag">New Arrival</div>
+      </div>
+      <div class="hero-number">01 / 08</div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span class="scroll-text">Scroll</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <!-- duplicated for seamless loop -->
+    <div class="marquee-item"><span>Haute Couture</span><div class="dot"></div><span>Kunal Store</span><div class="dot"></div><span>SS 2026 Collection</span><div class="dot"></div><span>Handcrafted Excellence</span><div class="dot"></div><span>Luxury Redefined</span><div class="dot"></div><span>New Delhi Atelier</span><div class="dot"></div></div>
+    <div class="marquee-item"><span>Haute Couture</span><div class="dot"></div><span>Kunal Store</span><div class="dot"></div><span>SS 2026 Collection</span><div class="dot"></div><span>Handcrafted Excellence</span><div class="dot"></div><span>Luxury Redefined</span><div class="dot"></div><span>New Delhi Atelier</span><div class="dot"></div></div>
+  </div>
+</div>
+
+<!-- COLLECTION -->
+<section id="collection">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Curated Selection</div>
+    <h2 class="section-title">The <em>Collection</em></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="collection">
+    <div class="collection-grid">
+      <div class="product-card featured reveal">
+        <div class="product-bg p1">
+          <div class="product-pattern"></div>
+          <svg class="product-shape" width="240" height="240" viewBox="0 0 240 240"><circle cx="120" cy="120" r="100" stroke="#fff" stroke-width="0.5" fill="none"/><circle cx="120" cy="120" r="70" stroke="#B8975A" stroke-width="0.5" fill="none"/><circle cx="120" cy="120" r="40" stroke="#fff" stroke-width="0.3" fill="none"/></svg>
+        </div>
+        <div class="product-overlay"></div>
+        <div class="product-info">
+          <div class="product-collection">Signature Series</div>
+          <div class="product-name">Le Grand Noir Coat</div>
+          <div class="product-price">₹ 1,85,000</div>
+        </div>
+        <div class="product-add">+</div>
+      </div>
+      <div class="product-card reveal reveal-delay-1">
+        <div class="product-bg p2">
+          <div class="product-pattern"></div>
+          <svg class="product-shape" width="160" height="160" viewBox="0 0 160 160"><rect x="20" y="20" width="120" height="120" stroke="#fff" stroke-width="0.5" fill="none" rx="2"/><rect x="40" y="40" width="80" height="80" stroke="#B8975A" stroke-width="0.5" fill="none" rx="1"/></svg>
+        </div>
+        <div class="product-overlay"></div>
+        <div class="product-info">
+          <div class="product-collection">Evening Wear</div>
+          <div class="product-name">Midnight Silk Blazer</div>
+          <div class="product-price">₹ 92,000</div>
+        </div>
+        <div class="product-add">+</div>
+      </div>
+      <div class="product-card reveal reveal-delay-1">
+        <div class="product-bg p3">
+          <div class="product-pattern"></div>
+          <svg class="product-shape" width="160" height="160" viewBox="0 0 160 160"><polygon points="80,10 150,150 10,150" stroke="#fff" stroke-width="0.5" fill="none"/><polygon points="80,40 120,120 40,120" stroke="#B8975A" stroke-width="0.5" fill="none"/></svg>
+        </div>
+        <div class="product-overlay"></div>
+        <div class="product-info">
+          <div class="product-collection">Bespoke Tailoring</div>
+          <div class="product-name">Obsidian Sherwaani</div>
+          <div class="product-price">₹ 2,40,000</div>
+        </div>
+        <div class="product-add">+</div>
+      </div>
+      <div class="product-card reveal reveal-delay-2">
+        <div class="product-bg p4">
+          <div class="product-pattern"></div>
+          <svg class="product-shape" width="160" height="160" viewBox="0 0 160 160"><line x1="80" y1="10" x2="80" y2="150" stroke="#fff" stroke-width="0.5"/><line x1="10" y1="80" x2="150" y2="80" stroke="#fff" stroke-width="0.5"/><line x1="25" y1="25" x2="135" y2="135" stroke="#B8975A" stroke-width="0.5"/><line x1="135" y1="25" x2="25" y2="135" stroke="#B8975A" stroke-width="0.5"/></svg>
+        </div>
+        <div class="product-overlay"></div>
+        <div class="product-info">
+          <div class="product-collection">Accessories</div>
+          <div class="product-name">Monogram Silk Scarf</div>
+          <div class="product-price">₹ 28,500</div>
+        </div>
+        <div class="product-add">+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy" id="philosophy">
+  <div class="philosophy-text reveal">
+    <div class="eyebrow">Our Atelier</div>
+    <h2>Crafted with<br><em>intention,</em><br>worn with grace.</h2>
+    <p>Every garment born from the hands of master craftsmen, blending centuries-old techniques with the bold vision of contemporary India.</p>
+    <p>Kunal Store is not merely a label. It is a commitment — to the rare, the refined, the truly extraordinary.</p>
+    <div class="philosophy-stats">
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-number">12+</div>
+        <div class="stat-label">Years of craft</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-number">800+</div>
+        <div class="stat-label">Bespoke pieces</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-number">40+</div>
+        <div class="stat-label">Master artisans</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Global showrooms</div>
+      </div>
+    </div>
+  </div>
+  <div class="philosophy-visual reveal reveal-delay-2">
+    <div class="philosophy-visual-bg"></div>
+    <svg class="philosophy-ornament" width="120" height="120" viewBox="0 0 120 120">
+      <circle cx="60" cy="60" r="55" stroke="#B8975A" stroke-width="0.5" fill="none"/>
+      <circle cx="60" cy="60" r="40" stroke="#B8975A" stroke-width="0.5" fill="none"/>
+      <circle cx="60" cy="60" r="25" stroke="#B8975A" stroke-width="0.5" fill="none"/>
+      <line x1="60" y1="5" x2="60" y2="115" stroke="#B8975A" stroke-width="0.3"/>
+      <line x1="5" y1="60" x2="115" y2="60" stroke="#B8975A" stroke-width="0.3"/>
+    </svg>
+    <div class="philosophy-quote">
+      <blockquote>"Luxury is not about excess. It is about the perfect edit."</blockquote>
+      <cite>— Kunal, Founder & Creative Director</cite>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section class="featured-strip" id="featured">
+  <div class="featured-content reveal">
+    <div class="featured-eyebrow">New Season Drop</div>
+    <h2 class="featured-title">Dark <em>Royale</em><br>2026</h2>
+    <p class="featured-desc">An ode to restraint. A collection where every stitch whispers power and every silhouette commands the room.</p>
+    <a href="#collection" class="btn-primary">Shop Now</a>
+  </div>
+  <div class="featured-cards reveal reveal-delay-2">
+    <div class="mini-card">
+      <div class="mini-card-bg mc1"></div>
+      <div class="mini-label">The Suit</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-card-bg mc2"></div>
+      <div class="mini-label">The Drape</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-card-bg mc3"></div>
+      <div class="mini-label">The Coat</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-eyebrow reveal">Clientele Voices</div>
+  <h2 class="section-title reveal" style="margin-top:16px;">What they <em>say</em></h2>
+  <div class="section-line reveal"></div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <div class="testimonial-quote-mark">"</div>
+      <p class="testimonial-text">Wearing Kunal Store is not dressing — it is armour. I wore the Noir Coat to my board meeting and the room shifted.</p>
+      <div class="testimonial-author">Aditya R. — Mumbai</div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="testimonial-stars">★★★★★</div>
+      <div class="testimonial-quote-mark">"</div>
+      <p class="testimonial-text">The bespoke process was meditative. They understood my vision before I even finished speaking. Truly extraordinary atelier.</p>
+      <div class="testimonial-author">Priya S. — New Delhi</div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-2">
+      <div class="testimonial-stars">★★★★★</div>
+      <div class="testimonial-quote-mark">"</div>
+      <p class="testimonial-text">There is a silence in the way their garments drape. A confidence. I have never felt more like myself than in their Obsidian Sherwaani.</p>
+      <div class="testimonial-author">Ranveer M. — Bengaluru</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="newsletter">
+  <div class="newsletter-eyebrow">Join The Circle</div>
+  <h2 class="newsletter-title">First Access.<br>Always.</h2>
+  <p class="newsletter-sub">Be among the few who receive our private previews, atelier invitations, and curated dispatches.</p>
+  <div class="newsletter-form">
+    <input class="newsletter-input" type="email" placeholder="Your email address">
+    <button class="newsletter-btn">Subscribe</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="footer-brand">Kunal Store</span>
+      <p class="footer-about">Redefining the language of Indian luxury. Handcrafted for those who understand that true elegance needs no introduction.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Collection</div>
+      <ul class="footer-links">
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Signature Series</a></li>
+        <li><a href="#">Evening Wear</a></li>
+        <li><a href="#">Bespoke</a></li>
+        <li><a href="#">Accessories</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Atelier</div>
+      <ul class="footer-links">
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">Craftsmanship</a></li>
+        <li><a href="#">Showrooms</a></li>
+        <li><a href="#">Appointments</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Support</div>
+      <ul class="footer-links">
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">Care & Maintenance</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Kunal Store. All rights reserved.</span>
+    <div class="footer-socials">
+      <a href="#">Instagram</a>
+      <a href="#">Pinterest</a>
+      <a href="#">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Sticky nav
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
